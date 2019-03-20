@@ -1,0 +1,107 @@
+#include <iostream>
+#include <fstream>
+#include <cmath>
+using namespace std;
+
+ifstream f("date.in") ;
+ofstream g("date.out") ;
+
+class lista
+{
+int l , a ;
+int *p ;
+public:
+    lista(int sz )
+    {
+        p = new int[sz] ;
+        l = sz ;
+    }
+    lista (const lista&  );
+    friend istream  & operator>>(istream & i , lista & ob ) ;
+    friend ostream  & operator<<(ostream & g , lista & ob ) ;
+    lista  operator=(lista ob ) ;
+    lista  operator+(lista ob ) ;
+    friend bool operator++(lista ob ) ;
+    friend bool operator <(  lista ob , lista bo);
+    friend bool operator ==(  lista ob , lista bo);
+    friend bool operator !=(  lista ob , lista bo);
+    int &operator [](int i){
+    return p[i];
+    }
+    ~lista (){
+    delete []p ;
+    };
+};
+
+lista:: lista( const lista & a )
+{
+    int i ;
+    l=a.l;
+    p= new int[a.l] ;
+    for( i = 0 ; i < a.l ; i ++ )
+        p[i] = a.p[i] ;
+}
+
+istream & operator >>( istream & i , lista & ob )
+{
+  i >> ob.a ;
+  return i ;
+
+}
+
+ostream & operator <<( ostream & g , lista & ob )
+{
+    g << ob.a ;
+    return g ;
+}
+
+lista lista:: operator+( lista ob )
+{
+    ob.a = a + ob.a ;
+    return (*this);
+}
+
+bool operator++( lista ob )
+{
+    ob.a ++ ;
+    return ob.a;
+}
+
+lista lista:: operator=( lista ob )
+{
+    a = ob.a ;
+    return (*this) ;
+}
+
+bool  operator <(  lista ob , lista bo)
+{
+    if(  bo.a > ob.a )
+        return bo.a > ob.a;
+    return ob.a < bo.a;
+}
+
+bool  operator ==(  lista ob , lista bo)
+{
+    if(  bo.a == ob.a )
+        return bo.a == ob.a;
+    return ob.a < bo.a;
+}
+
+bool  operator !=(  lista ob , lista bo)
+{
+    if(  bo.a != ob.a )
+        return bo.a != ob.a;
+    return ob.a < bo.a;
+}
+
+int main()
+{
+    int n , i;
+    cin>> n;
+   lista p(n );
+  for( i = 1 ; i <= n ; i ++ )
+    cin>> p[i] ;
+for( int i = 1 ; i <= n ; i ++ )
+    cout << p[i] << " ";
+}
+
